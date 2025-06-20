@@ -64,11 +64,17 @@ ia-reviewer/
 ├── 📋 ai_review_pt.md         # Guia de revisão de PR (português)
 ├── 📋 ai_review_en.md         # Guia de revisão de PR (inglês)
 ├── 🛠️  tools/
-│   └── ghcat.sh              # Ferramenta para buscar arquivos do GitHub
+│   ├── ghcat.sh              # Ferramenta para buscar arquivos do GitHub
+│   ├── ghpr.sh               # Ferramenta para buscar informações de PRs (Linux/Mac)
+│   └── ghpr.ps1              # Ferramenta para buscar informações de PRs (Windows)
 └── 📁 artifacts/             # Saídas de revisões de PR (criada automaticamente)
 ```
 
 ## 🚀 Como Usar
+
+### 🎯 Uso no Cursor Chat (RECOMENDADO)
+**Para usar este projeto diretamente no Cursor Chat, veja o guia completo:** 
+📖 **[README-CURSOR.md](README-CURSOR.md)** 
 
 ### 1. Revisão de Pull Request
 
@@ -82,7 +88,34 @@ cat ai_review_pt.md
 cat ai_review_en.md
 ```
 
-### 2. Ferramenta ghcat.sh
+### 2. Ferramenta ghpr (NOVO!)
+
+**Reconhecimento automático de URLs de PR:**
+Agora quando você mencionar uma PR com `@`, a ferramenta reconhece automaticamente:
+
+**Linux/Mac (Bash):**
+```bash
+# Análise completa a partir da URL
+tools/ghpr.sh @https://github.com/owner/repo/pull/123
+
+# Opções específicas
+tools/ghpr.sh -d @https://github.com/owner/repo/pull/123  # com diff
+tools/ghpr.sh -f @https://github.com/owner/repo/pull/123  # apenas arquivos
+tools/ghpr.sh -o review.txt owner/repo 123               # salvar em arquivo
+```
+
+**Windows (PowerShell):**
+```powershell
+# Análise completa a partir da URL
+tools/ghpr.ps1 -Url "@https://github.com/owner/repo/pull/123"
+
+# Opções específicas
+tools/ghpr.ps1 -Url "@https://github.com/owner/repo/pull/123" -Diff      # com diff
+tools/ghpr.ps1 -Url "@https://github.com/owner/repo/pull/123" -Files     # apenas arquivos
+tools/ghpr.ps1 -Repo "owner/repo" -PrNumber 123 -Output "review.txt"     # salvar em arquivo
+```
+
+### 3. Ferramenta ghcat.sh
 
 Busque arquivos do GitHub sem problemas de base64:
 
@@ -106,8 +139,29 @@ tools/ghcat.sh -o temp.txt owner/repo arquivo.txt
 tools/ghcat.sh --validate owner/repo arquivo.txt
 ```
 
-### 3. Fluxo completo de revisão
+### 4. Fluxo completo de revisão
 
+**Novo fluxo automático:**
+
+**Linux/Mac:**
+```bash
+# 🎯 NOVO: Análise automática a partir da URL
+tools/ghpr.sh @https://github.com/owner/repo/pull/123
+
+# Com mais detalhes
+tools/ghpr.sh -d -f @https://github.com/owner/repo/pull/123
+```
+
+**Windows:**
+```powershell
+# 🎯 NOVO: Análise automática a partir da URL
+tools/ghpr.ps1 -Url "@https://github.com/owner/repo/pull/123"
+
+# Com mais detalhes
+tools/ghpr.ps1 -Url "@https://github.com/owner/repo/pull/123" -Diff -Files
+```
+
+**Fluxo tradicional:**
 ```bash
 # 1. Buscar informações do PR
 gh pr view 123 --repo owner/repo > artifacts/pr_info_123.txt
@@ -149,6 +203,34 @@ echo "Revisão do PR #123..." > artifacts/pr_review_123.md
 ## 📝 Exemplos Práticos
 
 ### Revisar um PR específico:
+
+**🎯 Novo modo automático:**
+
+**Linux/Mac:**
+```bash
+# Análise completa automática
+tools/ghpr.sh @https://github.com/microsoft/vscode/pull/42
+
+# Com diff e lista de arquivos
+tools/ghpr.sh -d -f @https://github.com/microsoft/vscode/pull/42
+
+# Salvar análise completa
+tools/ghpr.sh -d -f -o artifacts/pr_analysis_42.txt @https://github.com/microsoft/vscode/pull/42
+```
+
+**Windows:**
+```powershell
+# Análise completa automática
+tools/ghpr.ps1 -Url "@https://github.com/microsoft/vscode/pull/42"
+
+# Com diff e lista de arquivos
+tools/ghpr.ps1 -Url "@https://github.com/microsoft/vscode/pull/42" -Diff -Files
+
+# Salvar análise completa
+tools/ghpr.ps1 -Url "@https://github.com/microsoft/vscode/pull/42" -Diff -Files -Output "artifacts/pr_analysis_42.txt"
+```
+
+**Modo tradicional:**
 ```bash
 # Buscar mudanças do PR
 gh pr diff 42 --repo microsoft/vscode > temp_diff.txt
