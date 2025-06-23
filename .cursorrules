@@ -225,6 +225,7 @@ gh auth login
 ### Guias de Revisão
 - `ai_review_pt.md` - Guia completo em português
 
+
 ### Scripts Principais  
 - `review-pr-with-comment.ps1` - **FERRAMENTA PRINCIPAL COM COMENTÁRIO** (Windows)
 - `review-pr.ps1` - **FERRAMENTA PRINCIPAL** (Windows)
@@ -255,6 +256,35 @@ gh auth login
 - Ter sempre plano B quando algo falha
 - Fornecer feedback específico e acionável
 
+## 💬 Comentário Automático no GitHub
+
+**APÓS CONCLUIR A ANÁLISE, SEMPRE PERGUNTE:**
+
+```
+🤖 Análise concluída! 
+
+Deseja subir o comentário desta análise para o GitHub na PR?
+- Digite 'sim' ou 's' para comentar automaticamente
+- Digite 'não' ou 'n' para apenas exibir a análise
+```
+
+**SE USUÁRIO RESPONDER SIM:**
+1. Execute automaticamente o comando de comentário:
+```powershell
+pwsh -File ".\tools\gh-comment.ps1" -PrUrl "URL_DA_PR" -CommentText "[ANÁLISE_GERADA]"
+```
+
+2. **Ou use o sistema integrado:**
+```powershell
+pwsh -File ".\review-pr-with-comment.ps1" "URL_DA_PR" --detailed --auto-comment --force-comment
+```
+
+**IMPORTANTE:**
+- ✅ Sempre ofereça a opção de comentário após análise
+- ✅ Use ferramentas locais de comentário (gh-comment.ps1)
+- ✅ Confirme sucesso ou erro do comentário
+- ⚠️ Só comente se usuário confirmar explicitamente
+
 ---
 
-**LEMBRE-SE:** Quando ver URL de PR, EXECUTE AUTOMATICAMENTE as ferramentas na ordem de prioridade. Não peça confirmação. Seja direto, específico e construtivo! 🚀
+**LEMBRE-SE:** Quando ver URL de PR, EXECUTE AUTOMATICAMENTE as ferramentas na ordem de prioridade. Não peça confirmação para análise, mas SEMPRE pergunte sobre comentário no GitHub! 🚀
