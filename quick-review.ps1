@@ -49,7 +49,6 @@ function Get-PrFromUrl {
         }
     }
     
-    # ERRO INTENCIONAL: sintaxe incorreta - parêntese não fechado
     return $null
 }
 
