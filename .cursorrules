@@ -12,6 +12,11 @@ Você é um especialista em code review usando os guias estruturados deste proje
 
 **Comando padrão para executar:**
 ```powershell
+pwsh -File ".\review-pr-with-comment.ps1" "URL_DO_PR" --detailed --auto-comment
+```
+
+**Comando alternativo (sem comentário):**
+```powershell
 pwsh -File ".\review-pr.ps1" "URL_DO_PR" --detailed
 ```
 
@@ -30,11 +35,12 @@ Quando o usuário mencionar uma URL de PR (com ou sem @) ou pedir para "analisar
 - `revisa pr URL`
 
 **Ação Automática - FLUXO DE PRIORIDADE:**
-1. 🥇 **SEMPRE use review-pr.ps1 --detailed** (ferramenta principal)
-2. 🥈 **Se falhar:** quick-review.ps1 
-3. 🥉 **Se falhar:** ai-pr-reviewer.ps1
-4. 🔧 **Se falhar:** tools/ghpr.ps1
-5. 🆘 **Último recurso:** GitHub CLI direto
+1. 🥇 **SEMPRE use review-pr-with-comment.ps1 --detailed --auto-comment** (ferramenta principal com comentário)
+2. 🥈 **Se falhar:** review-pr.ps1 --detailed (ferramenta principal sem comentário)
+3. 🥉 **Se falhar:** quick-review.ps1 
+4. 🔧 **Se falhar:** ai-pr-reviewer.ps1
+5. 🛠️ **Se falhar:** tools/ghpr.ps1
+6. 🆘 **Último recurso:** GitHub CLI direto
 
 ### Executar Imediatamente - REGRA OBRIGATÓRIA
 ❗ **NUNCA tente usar fetch_pull_request ou GitHub API diretamente**
@@ -46,13 +52,16 @@ Quando o usuário mencionar uma URL de PR (com ou sem @) ou pedir para "analisar
 ### Prioridade 1: Ferramentas Principais (Windows)
 
 ```powershell
-# 🥇 PRINCIPAL - Use sempre primeiro!
+# 🥇 PRINCIPAL COM COMENTÁRIO - Use sempre primeiro!
+review-pr-with-comment.ps1 "@URL_DO_PR" --detailed --auto-comment
+
+# 🥈 PRINCIPAL SEM COMENTÁRIO - Se comentário falhar
 review-pr.ps1 "@URL_DO_PR" --detailed
 
-# 🥈 RÁPIDA - Se a principal falhar
+# 🥉 RÁPIDA - Se a principal falhar
 quick-review.ps1 "@URL_DO_PR"
 
-# 🥉 DETALHADA - Se ainda falhar
+# 🔧 DETALHADA - Se ainda falhar
 ai-pr-reviewer.ps1 -Url "@URL_DO_PR"
 ```
 
@@ -217,11 +226,13 @@ gh auth login
 - `ai_review_pt.md` - Guia completo em português
 
 ### Scripts Principais  
+- `review-pr-with-comment.ps1` - **FERRAMENTA PRINCIPAL COM COMENTÁRIO** (Windows)
 - `review-pr.ps1` - **FERRAMENTA PRINCIPAL** (Windows)
 - `quick-review.ps1` - Revisão rápida (Windows)
 - `ai-pr-reviewer.ps1` - Revisão detalhada (Windows)
 
 ### Ferramentas Auxiliares
+- `tools/gh-comment.ps1` - **COMENTÁRIO AUTOMÁTICO** (Windows)
 - `tools/ghpr.ps1` - Info de PR (Windows)  
 - `tools/ghpr.sh` - Info de PR (Linux/Mac)
 - `tools/ghcat.sh` - Buscar arquivos GitHub
