@@ -66,38 +66,6 @@ gh auth login
 
 ---
 
-## 🛠️ Ferramentas Principais
-
-### 🥇 **review-pr-with-comment.ps1** - PRINCIPAL
-**Análise completa + comentário automático**
-```powershell
-# Modo interativo (pergunta antes de comentar)
-.\review-pr-with-comment.ps1 "URL_DA_PR" --detailed --auto-comment
-
-# Modo automático (comenta direto)
-.\review-pr-with-comment.ps1 "URL_DA_PR" --detailed --auto-comment --force-comment
-```
-
-### 🥈 **review-pr.ps1** - ANÁLISE SEM COMENTÁRIO
-**Apenas análise, sem comentar**
-```powershell
-.\review-pr.ps1 "URL_DA_PR" --detailed
-```
-
-### 🥉 **quick-review.ps1** - ANÁLISE RÁPIDA
-**Análise expressa para decisões rápidas**
-```powershell
-.\quick-review.ps1 "URL_DA_PR"
-```
-
-### 🔧 **ai-pr-reviewer.ps1** - ANÁLISE DETALHADA
-**Análise técnica profunda**
-```powershell
-.\ai-pr-reviewer.ps1 -Url "URL_DA_PR" -Output "review.md"
-```
-
----
-
 ## 🎯 Exemplo de Uso no Cursor Chat
 
 ```
@@ -377,6 +345,38 @@ Contribuições são bem-vindas! Por favor:
 3. Commit suas mudanças
 4. Push para a branch
 5. Abra um Pull Request
+
+---
+
+## 🛠️ Ferramentas Principais
+
+### 🥇 **review-pr-with-comment.ps1** - PRINCIPAL
+**Análise completa + comentário automático**
+```powershell
+# Modo interativo (pergunta antes de comentar)
+.\review-pr-with-comment.ps1 "URL_DA_PR" --detailed --auto-comment
+
+# Modo automático (comenta direto)
+.\review-pr-with-comment.ps1 "URL_DA_PR" --detailed --auto-comment --force-comment
+```
+
+### 🥈 **review-pr.ps1** - ANÁLISE SEM COMENTÁRIO
+**Apenas análise, sem comentar**
+```powershell
+.\review-pr.ps1 "URL_DA_PR" --detailed
+```
+
+### 🥉 **quick-review.ps1** - ANÁLISE RÁPIDA
+**Análise expressa para decisões rápidas**
+```powershell
+.\quick-review.ps1 "URL_DA_PR"
+```
+
+### 🔧 **ai-pr-reviewer.ps1** - ANÁLISE DETALHADA
+**Análise técnica profunda**
+```powershell
+.\ai-pr-reviewer.ps1 -Url "URL_DA_PR" -Output "review.md"
+```
 
 ---
 
