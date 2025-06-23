@@ -21,25 +21,27 @@ Sistema inteligente que **analisa automaticamente PRs do GitHub** e pode **comen
 
 ---
 
-## ⚡ Uso Super Simples (1 comando)
+## ⚡ Como Usar (Super Simples)
 
-### 💬 No Cursor Chat (RECOMENDADO)
-Simplesmente digite:
+### 1. Setup (uma vez só):
+```powershell
+winget install --id GitHub.cli
+gh auth login
+```
+
+### 2. Usar no Cursor Chat:
+1. **Abra o projeto IA Reviewer no Cursor** (Ctrl+O)
+2. **Abra o Chat** (Ctrl+L) 
+3. **Digite:**
 ```
 analise a PR @https://github.com/owner/repo/pull/123
 ```
 
-**O que acontece automaticamente:**
-1. ✅ Analisa a PR completamente
-2. ✅ Gera relatório profissional 
-3. ✅ Pergunta se quer comentar no GitHub
-4. ✅ Se confirmar, comenta automaticamente na PR!
-
-### 🖥️ Via Terminal (Windows)
-```powershell
-# Análise + opção de comentário
-.\review-pr-with-comment.ps1 "https://github.com/owner/repo/pull/123" --detailed --auto-comment
-```
+**🎯 O que acontece automaticamente:**
+1. ✅ Analisa código automaticamente
+2. ✅ Mostra relatório profissional completo
+3. ✅ Pergunta se quer comentar na PR
+4. ✅ Se confirmar, comenta automaticamente no GitHub!
 
 ---
 
@@ -96,25 +98,8 @@ gh auth login
 
 ---
 
-## 🎯 Exemplos de Uso
+## 🎯 Exemplo de Uso no Cursor Chat
 
-### Análise + Comentário Automático
-```powershell
-# 1. Analisar PR do Dependabot
-.\review-pr-with-comment.ps1 "https://github.com/meu-projeto/repo/pull/42" --detailed --auto-comment
-
-# 2. Sistema pergunta: "Deseja comentar no GitHub?"
-# 3. Você responde: "sim"
-# 4. Comenta automaticamente com análise completa!
-```
-
-### Apenas Análise (Sem Comentário)
-```powershell
-# Análise local (não comenta)
-.\review-pr.ps1 "https://github.com/projeto/repo/pull/123" --detailed
-```
-
-### No Cursor Chat
 ```
 Usuário: analise esta PR @https://github.com/facebook/react/pull/456
 
@@ -123,12 +108,21 @@ Cursor: [Executa análise automaticamente]
         
         🤖 Análise concluída! 
         Deseja subir o comentário desta análise para o GitHub na PR?
+        - Digite 'sim' ou 's' para comentar automaticamente
+        - Digite 'não' ou 'n' para apenas exibir a análise
 
 Usuário: sim
 
 Cursor: [Comenta automaticamente na PR]
         ✅ Comentário postado com sucesso na PR!
 ```
+
+### 📊 Exemplo de Análise Gerada:
+- **Score:** 6/10
+- **Arquitetura:** 3/3 ✅ 
+- **Bugs:** 1/3 ⚠️ (risco de breaking changes)
+- **Sugestões específicas** com código
+- **Checklist de ação** priorizado
 
 ---
 
@@ -297,34 +291,30 @@ gh repo view owner/repo
 
 ## 🎯 Casos de Uso
 
-### 👨‍💻 Desenvolvedor Individual
-```powershell
-# Revisar sua própria PR antes de pedir review
-.\review-pr.ps1 "https://github.com/meu-repo/projeto/pull/42" --detailed
+### 👨‍💻 **Desenvolvedor Individual**
 ```
+analise minha PR @https://github.com/meu-repo/projeto/pull/42
+```
+*Revisar sua própria PR antes de pedir review da equipe*
 
-### 👥 Equipe de Desenvolvimento
-```powershell
-# Análise + comentário automático em PRs da equipe
-.\review-pr-with-comment.ps1 "URL_DA_PR" --detailed --auto-comment
+### 👥 **Equipe de Desenvolvimento** 
 ```
+analise esta PR @https://github.com/empresa/projeto/pull/123
+```
+*Análise + comentário automático em PRs da equipe*
 
-### 🤖 CI/CD Integration
-```yaml
-# GitHub Actions
-- name: Auto Review PR
-  run: |
-    powershell -ExecutionPolicy Bypass -File review-pr-with-comment.ps1 "${{ github.event.pull_request.html_url }}" --detailed --auto-comment --force-comment
+### 🤖 **PRs do Dependabot**
 ```
+analise dependabot @https://github.com/projeto/repo/pull/456
+```
+*Verificar breaking changes em atualizações de dependências*
 
-### 📱 Cursor Chat Workflow
-```
+### 📱 **Workflow Simples:**
 1. Abrir PR no GitHub
-2. Copiar URL da PR
-3. No Cursor: "analise a PR @URL"
+2. Copiar URL da PR  
+3. No Cursor Chat: `analise a PR @URL`
 4. Confirmar comentário: "sim"
 5. ✅ Análise postada automaticamente!
-```
 
 ---
 
