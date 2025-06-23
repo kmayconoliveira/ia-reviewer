@@ -13,7 +13,6 @@ param(
     [switch]$Help
 )
 
-if ($Help) {
     @"
 gh-comment.ps1 - Comentário automático em PRs
 
