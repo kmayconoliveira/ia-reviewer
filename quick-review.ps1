@@ -49,6 +49,7 @@ function Get-PrFromUrl {
         }
     }
     
+    # ERRO INTENCIONAL: sintaxe incorreta - parêntese não fechado
     return $null
 }
 
@@ -69,6 +70,9 @@ function Invoke-QuickReview {
         if ($LASTEXITCODE -ne 0) {
             throw "PR não encontrado ou sem acesso"
         }
+        
+        # ERRO INTENCIONAL: chamada de função que não existe
+        $invalidFunction = Get-NonExistentFunction($pr)
         
         $diff = gh pr diff $pr --repo $repo 2>$null
         $files = gh pr diff $pr --repo $repo --name-only 2>$null
